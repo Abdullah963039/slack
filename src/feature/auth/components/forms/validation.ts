@@ -6,14 +6,12 @@ const PASSWORD_REGEX =
 export type SignInValues = z.infer<typeof signInSchema>;
 export const signInSchema = z.object({
   email: z
-    .string({ required_error: "Email must be provided" })
+    .string()
+    .min(1, "Email must be provided")
     .email("Invalid email format."),
   password: z
-    .string({ required_error: "Password must be provided" })
-    .regex(PASSWORD_REGEX, {
-      message:
-        "Password must contains special, capital, small charectars and numbers",
-    }),
+    .string({ required_error: "Password is required" })
+    .min(1, "Password is required"),
 });
 
 export type SignUpValues = z.infer<typeof signUpSchema>;
@@ -25,6 +23,13 @@ export const signUpSchema = signInSchema
     confirmPassword: z.string({
       required_error: "Please confirm your password",
     }),
+    password: z
+      .string({ required_error: "Password is required" })
+      .min(6, "Password is too short.")
+      .regex(PASSWORD_REGEX, {
+        message:
+          "Password must contains special, capital, small charectars and numbers",
+      }),
   })
   .refine((values) => values.confirmPassword === values.password, {
     message: "Password doesn't match",

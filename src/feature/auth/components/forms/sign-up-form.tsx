@@ -57,7 +57,7 @@ export const SignUpForm = ({ disabled, onSubmit }: SignUpFormProps) => {
               <Input
                 disabled={pending}
                 placeholder="Password"
-                type="text"
+                type="password"
                 {...field}
               />
               <FormMessage className="text-xs" />

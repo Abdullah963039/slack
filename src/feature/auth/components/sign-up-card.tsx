@@ -3,6 +3,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useAuthActions } from "@convex-dev/auth/react";
+import { AlertTriangle } from "lucide-react";
 import { useState } from "react";
 
 import {
@@ -40,7 +41,9 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
     setPending(true);
 
     signIn("password", { email, password, name, flow: "signUp" })
-      .catch(() => {})
+      .catch(() => {
+        setError("Something went wrong.");
+      })
       .finally(() => {
         setPending(false);
       });
@@ -49,10 +52,17 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
   return (
     <Card className="h-full w-full p-8">
       <CardHeader className="px-0 pt-0">
-        <CardTitle>Login to continue</CardTitle>
+        <CardTitle>Sign up to continue</CardTitle>
         <CardDescription>
           Use your email or another service to continue.
         </CardDescription>
+
+        {!!error && (
+          <div className="mb-6 flex items-center justify-center gap-x-2 rounded-sm bg-destructive/20 p-3 text-sm text-destructive">
+            <AlertTriangle className="size-5" />
+            <span className="font-medium">{error}</span>
+          </div>
+        )}
       </CardHeader>
       <CardContent className="space-y-5 px-0 pb-0">
         <SignUpForm disabled={pending} onSubmit={onPasswordSignup} />
