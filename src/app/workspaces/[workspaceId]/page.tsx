@@ -1,7 +1,16 @@
-interface WorkspaceIdPageProps {
-  params: { workspaceId: string };
-}
+"use client";
 
-export default function WorkspaceIdPage({ params }: WorkspaceIdPageProps) {
-  return <div>workspaceId: {params.workspaceId}</div>;
+import { useGetWorkspaceById } from "@/features/workspaces/api/use-get-workspace-by-id";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+
+export default function WorkspaceIdPage() {
+  const workspaceId = useWorkspaceId();
+  const { data, isLoading } = useGetWorkspaceById(workspaceId);
+
+  return (
+    <div className="whitespace-pre-wrap p-6">
+      <div>workspaceId: {workspaceId}</div>
+      <code>{JSON.stringify(data)}</code>
+    </div>
+  );
 }

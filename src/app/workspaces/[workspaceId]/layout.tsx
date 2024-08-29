@@ -3,20 +3,21 @@ import { fetchQuery } from "convex/nextjs";
 import { redirect, RedirectType } from "next/navigation";
 
 import { api } from "@root/convex/_generated/api";
+import { Id } from "@root/convex/_generated/dataModel";
+
+import { Toolbar } from "./_components/toolbar";
 
 export async function generateMetadata({
   params,
 }: Pick<WorkspaceLayoutProps, "params">): Promise<Metadata> {
-  const workspaces = await fetchQuery(api.workspaces.get);
+  const workspace = await fetchQuery(api.workspaces.getById, {
+    id: params.workspaceId as Id<"workspaces">,
+  });
 
-  const workspaceName = workspaces.find(
-    (workspace) => workspace._id === params.workspaceId,
-  )?.name;
-
-  if (!workspaceName) redirect("/", RedirectType.replace);
+  if (!workspace) redirect("/", RedirectType.replace);
 
   return {
-    title: `Workspace | ${workspaceName}`,
+    title: `Workspace | ${workspace.name}`,
   };
 }
 
@@ -26,5 +27,10 @@ interface WorkspaceLayoutProps {
 }
 
 export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
-  return children;
+  return (
+    <div className="h-full">
+      <Toolbar />
+      {children}
+    </div>
+  );
 }
