@@ -6,7 +6,7 @@ import {
 } from "@convex-dev/auth/nextjs/server";
 
 const isPublicPage = createRouteMatcher(["/auth"]);
-const isProtectedRoute = createRouteMatcher(["/"]);
+const isProtectedRoute = createRouteMatcher(["/", "/workspaces/*"]);
 
 export default convexAuthNextjsMiddleware((request) => {
   if (isPublicPage(request) && isAuthenticatedNextjs()) {

@@ -4,14 +4,20 @@ import { redirect, RedirectType } from "next/navigation";
 
 import { api } from "@root/convex/_generated/api";
 import { Id } from "@root/convex/_generated/dataModel";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 import { Toolbar } from "./_components/toolbar";
 import { Sidebar } from "./_components/sidebar";
+import { WorkspaceSidebar } from "./_components/workspace-sidebar";
 
 export async function generateMetadata({
   params,
 }: Pick<WorkspaceLayoutProps, "params">): Promise<Metadata> {
-  const workspace = await fetchQuery(api.workspaces.getById, {
+  const workspace = await fetchQuery(api.workspaces.getByIdMetadata, {
     id: params.workspaceId as Id<"workspaces">,
   });
 
@@ -33,7 +39,20 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       <Toolbar />
       <div className="flex h-[calc(100vh-40px)]">
         <Sidebar />
-        {children}
+        <ResizablePanelGroup
+          direction="horizontal"
+          autoSaveId="slack-workspace-layout"
+        >
+          <ResizablePanel
+            defaultSize={20}
+            minSize={11}
+            className="bg-[#5e2c5f]"
+          >
+            <WorkspaceSidebar />
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel minSize={20}>{children}</ResizablePanel>
+        </ResizablePanelGroup>
       </div>
     </div>
   );

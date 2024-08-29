@@ -36,7 +36,10 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" side="right" className="w-60">
-        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
+        <DropdownMenuItem
+          onClick={() => void signOut()}
+          className="cursor-pointer"
+        >
           <LogOut className="mr-1.5 size-4" />
           Sign out
         </DropdownMenuItem>
