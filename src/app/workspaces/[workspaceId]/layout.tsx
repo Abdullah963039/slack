@@ -6,6 +6,7 @@ import { api } from "@root/convex/_generated/api";
 import { Id } from "@root/convex/_generated/dataModel";
 
 import { Toolbar } from "./_components/toolbar";
+import { Sidebar } from "./_components/sidebar";
 
 export async function generateMetadata({
   params,
@@ -30,7 +31,10 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   return (
     <div className="h-full">
       <Toolbar />
-      {children}
+      <div className="flex h-[calc(100vh-40px)]">
+        <Sidebar />
+        {children}
+      </div>
     </div>
   );
 }

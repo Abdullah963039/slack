@@ -10,7 +10,6 @@ export default function WorkspaceIdPage() {
   return (
     <div className="whitespace-pre-wrap p-6">
       <div>workspaceId: {workspaceId}</div>
-      <code>{JSON.stringify(data)}</code>
     </div>
   );
 }

@@ -18,7 +18,9 @@ export const UserButton = () => {
 
   if (isLoading)
     return (
-      <Loader2 className="inline size-8 animate-spin text-muted-foreground" />
+      <div className="flex size-10 items-center justify-center overflow-hidden">
+        <Loader2 className="size-6 animate-spin text-muted-foreground" />
+      </div>
     );
 
   if (!data) return null;
