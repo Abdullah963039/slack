@@ -10,7 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { useCurrentUser } from "@/feature/auth/api/use-current-user";
+import { useCurrentUser } from "@/features/auth/api/use-current-user";
 
 export const UserButton = () => {
   const { signOut } = useAuthActions();
