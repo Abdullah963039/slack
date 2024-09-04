@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Hint } from "@/components/hint";
+import { usePreferencesModal } from "@/features/workspaces/store/preferences-modal";
 
 interface WorkspaceHeaderProps {
   workspace: Doc<"workspaces">;
@@ -20,6 +21,8 @@ export const WorkspaceHeader = ({
   workspace,
   isAdmin,
 }: WorkspaceHeaderProps) => {
+  const { onOpen } = usePreferencesModal();
+
   return (
     <div className="flex h-[50px] items-center justify-between gap-0.5 px-4">
       <DropdownMenu>
@@ -62,7 +65,7 @@ export const WorkspaceHeader = ({
 
               <DropdownMenuItem
                 className="cursor-pointer py-2"
-                onClick={() => {}}
+                onClick={() => onOpen(workspace.name)}
               >
                 Preferences
               </DropdownMenuItem>
