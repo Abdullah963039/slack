@@ -15,13 +15,13 @@ const sidebarItemVariants = cva(
     variants: {
       variant: {
         default: 'text-[#f9edffcc]',
-        active: 'text-[#481359] bg-white/90 hover:bg-white/90'
-      }
+        active: 'text-[#481359] bg-white/90 hover:bg-white/90',
+      },
     },
     defaultVariants: {
-      variant: 'default'
-    }
-  }
+      variant: 'default',
+    },
+  },
 )
 
 interface SidebarItemProps {
@@ -35,7 +35,7 @@ export const SidebarItem = ({
   icon: Icon,
   id,
   label,
-  variant
+  variant,
 }: SidebarItemProps) => {
   const workspaceId = useWorkspaceId()
 

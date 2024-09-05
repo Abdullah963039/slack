@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuItem
+  DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import { useCurrentUser } from '@/features/auth/api/use-current-user'
 

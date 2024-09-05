@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { Info, Search } from "lucide-react";
+import { Info, Search } from 'lucide-react'
 
-import { useGetWorkspaceById } from "@/features/workspaces/api/use-get-workspace-by-id";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { Button } from "@/components/ui/button";
+import { useGetWorkspaceById } from '@/features/workspaces/api/use-get-workspace-by-id'
+import { useWorkspaceId } from '@/hooks/use-workspace-id'
+import { Button } from '@/components/ui/button'
 
 export const Toolbar = () => {
-  const workspaceId = useWorkspaceId();
-  const { data } = useGetWorkspaceById(workspaceId);
+  const workspaceId = useWorkspaceId()
+  const { data } = useGetWorkspaceById(workspaceId)
 
   return (
     <nav className="flex h-10 items-center justify-between bg-[#481349] p-1.5">
@@ -28,5 +28,5 @@ export const Toolbar = () => {
         </Button>
       </div>
     </nav>
-  );
-};
+  )
+}

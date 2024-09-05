@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { Bell, Home, MessageSquare, MoreHorizontal } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
-import { UserButton } from "@/components/user-button";
+import { UserButton } from '@/components/user-button'
 
-import { WorkspaceSwicher } from "./workspace-swicher";
-import { SidebarButton } from "./sidebar-button";
+import { WorkspaceSwicher } from './workspace-swicher'
+import { SidebarButton } from './sidebar-button'
 
 export const Sidebar = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <aside className="flex h-full w-[70px] flex-col items-center gap-y-4 bg-[#481349] pb-1 pt-[9px]">
@@ -17,7 +17,7 @@ export const Sidebar = () => {
       <SidebarButton
         icon={Home}
         label="Home"
-        active={pathname.includes("workspaces")}
+        active={pathname.includes('workspaces')}
       />
       <SidebarButton icon={MessageSquare} label="DMs" />
       <SidebarButton icon={Bell} label="Activity" />
@@ -26,5 +26,5 @@ export const Sidebar = () => {
         <UserButton />
       </div>
     </aside>
-  );
-};
+  )
+}

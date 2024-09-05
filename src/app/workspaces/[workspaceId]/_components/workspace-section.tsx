@@ -19,7 +19,7 @@ export const WorkspaceSection = ({
   children,
   hint,
   label,
-  onNew
+  onNew,
 }: WorkspaceSectionProps) => {
   const [on, toggle] = useToggle(true)
 

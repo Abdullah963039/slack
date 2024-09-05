@@ -1,24 +1,24 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
-import { SignUpValues, signUpSchema } from "./validation";
+import { SignUpValues, signUpSchema } from './validation'
 
 interface SignUpFormProps {
-  disabled?: boolean;
-  onSubmit: (values: SignUpValues) => void;
+  disabled?: boolean
+  onSubmit: (values: SignUpValues) => void
 }
 
 export const SignUpForm = ({ disabled, onSubmit }: SignUpFormProps) => {
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: { email: "", password: "", confirmPassword: "", name: "" },
-  });
+    defaultValues: { email: '', password: '', confirmPassword: '', name: '' },
+  })
 
-  const pending = form.formState.isSubmitting || disabled;
+  const pending = form.formState.isSubmitting || disabled
 
   return (
     <Form {...form}>
@@ -86,5 +86,5 @@ export const SignUpForm = ({ disabled, onSubmit }: SignUpFormProps) => {
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}

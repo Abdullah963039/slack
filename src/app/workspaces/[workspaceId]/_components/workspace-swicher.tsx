@@ -1,32 +1,32 @@
-"use client";
+'use client'
 
-import { Loader, Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Loader, Plus } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
-import { Button } from "@/components/ui/button";
-import { useGetWorkspaceById } from "@/features/workspaces/api/use-get-workspace-by-id";
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useCreateWorkspaceModal } from "@/features/workspaces/store/create-workspace-modal";
+import { Button } from '@/components/ui/button'
+import { useGetWorkspaceById } from '@/features/workspaces/api/use-get-workspace-by-id'
+import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces'
+import { useWorkspaceId } from '@/hooks/use-workspace-id'
+import { useCreateWorkspaceModal } from '@/features/workspaces/store/create-workspace-modal'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 
 export const WorkspaceSwicher = () => {
-  const { onOpen } = useCreateWorkspaceModal();
-  const router = useRouter();
+  const { onOpen } = useCreateWorkspaceModal()
+  const router = useRouter()
 
-  const workspaceId = useWorkspaceId();
+  const workspaceId = useWorkspaceId()
   const { data: workspace, isLoading: workspaceLoading } =
-    useGetWorkspaceById(workspaceId);
-  const { data: workspaces, isLoading: workspacesLoading } = useGetWorkspaces();
+    useGetWorkspaceById(workspaceId)
+  const { data: workspaces, isLoading: workspacesLoading } = useGetWorkspaces()
 
   const filterdWorkspaces = workspaces?.filter(
     (workspace) => workspace._id !== workspaceId,
-  );
+  )
 
   return (
     <DropdownMenu>
@@ -45,7 +45,7 @@ export const WorkspaceSwicher = () => {
           onClick={() => router.push(`/workspaces/${workspaceId}`)}
           className="cursor-pointer flex-col items-start justify-start capitalize"
         >
-          {workspace?.name}{" "}
+          {workspace?.name}{' '}
           <span className="text-xs text-muted-foreground">
             Active workspace
           </span>
@@ -70,5 +70,5 @@ export const WorkspaceSwicher = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}

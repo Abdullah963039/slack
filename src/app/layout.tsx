@@ -1,21 +1,21 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server'
 
-import { ConvexClientProvider } from "@/components/providers/convex-provider";
-import { ModalsProvider } from "@/components/providers/modals-provider";
-import { Toaster } from "@/components/ui/sonner";
-import "./globals.css";
+import { ConvexClientProvider } from '@/components/providers/convex-provider'
+import { ModalsProvider } from '@/components/providers/modals-provider'
+import { Toaster } from '@/components/ui/sonner'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Slack",
-  description: "Welcome to slack tutorial",
-};
+  title: 'Slack',
+  description: 'Welcome to slack tutorial',
+}
 
 interface RootLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -31,5 +31,5 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </body>
       </html>
     </ConvexAuthNextjsServerProvider>
-  );
+  )
 }

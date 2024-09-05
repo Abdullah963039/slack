@@ -7,12 +7,12 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from '@/components/ui/dialog'
 
 export function useConfirm(
   title: string,
-  message: string
+  message: string,
 ): [() => JSX.Element, () => Promise<unknown>] {
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void

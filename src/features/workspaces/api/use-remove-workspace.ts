@@ -53,7 +53,7 @@ export const useRemoveWorkspace = () => {
         options?.onSettled?.()
       }
     },
-    [mutation]
+    [mutation],
   )
 
   return { mutate, error, data, isPending, isSuccess, isSettled, isError }

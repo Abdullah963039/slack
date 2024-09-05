@@ -6,7 +6,8 @@ import { mutation, query } from './_generated/server'
 const generateCode = () => {
   const code = Array.from(
     { length: 6 },
-    () => '0123456789abcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 36)]
+    () =>
+      '0123456789abcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 36)],
   ).join('')
 
   return code
@@ -25,14 +26,14 @@ export const create = mutation({
     const workspaceId = await ctx.db.insert('workspaces', {
       name: args.name,
       userId,
-      joinCode
+      joinCode,
     })
 
     await ctx.db.insert('members', { userId, workspaceId, role: 'admin' })
     await ctx.db.insert('channels', { name: 'general', workspaceId })
 
     return workspaceId
-  }
+  },
 })
 
 export const get = query({
@@ -60,7 +61,7 @@ export const get = query({
     }
 
     return workspaces
-  }
+  },
 })
 
 export const getById = query({
@@ -75,14 +76,14 @@ export const getById = query({
     const member = await ctx.db
       .query('members')
       .withIndex('by_workspace_id_user_id', (q) =>
-        q.eq('workspaceId', args.id).eq('userId', userId)
+        q.eq('workspaceId', args.id).eq('userId', userId),
       )
       .unique()
 
     if (!member) return null
 
     return await ctx.db.get(args.id)
-  }
+  },
 })
 
 // This query for meta
@@ -90,7 +91,7 @@ export const getByIdMetadata = query({
   args: { id: v.id('workspaces') },
   async handler(ctx, args) {
     return await ctx.db.get(args.id)
-  }
+  },
 })
 
 export const update = mutation({
@@ -103,7 +104,7 @@ export const update = mutation({
     const member = await ctx.db
       .query('members')
       .withIndex('by_workspace_id_user_id', (q) =>
-        q.eq('workspaceId', args.id).eq('userId', userId)
+        q.eq('workspaceId', args.id).eq('userId', userId),
       )
       .unique()
 
@@ -114,7 +115,7 @@ export const update = mutation({
     await ctx.db.patch(args.id, { name: args.name })
 
     return args.id
-  }
+  },
 })
 
 export const remove = mutation({
@@ -127,7 +128,7 @@ export const remove = mutation({
     const member = await ctx.db
       .query('members')
       .withIndex('by_workspace_id_user_id', (q) =>
-        q.eq('workspaceId', args.id).eq('userId', userId)
+        q.eq('workspaceId', args.id).eq('userId', userId),
       )
       .unique()
 
@@ -139,7 +140,7 @@ export const remove = mutation({
       ctx.db
         .query('members')
         .withIndex('by_workspace_id', (q) => q.eq('workspaceId', args.id))
-        .collect()
+        .collect(),
     ])
 
     for (const member of members) {
@@ -149,5 +150,5 @@ export const remove = mutation({
     await ctx.db.delete(args.id)
 
     return args.id
-  }
+  },
 })

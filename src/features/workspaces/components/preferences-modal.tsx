@@ -14,7 +14,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from '@/components/ui/dialog'
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -32,7 +32,7 @@ export const PreferencesModal = () => {
   const { isOpen, onClose, initialValue } = usePreferencesModal()
   const [ConfirmDeleteWorkspaceDialog, confirm] = useConfirm(
     'Are you sure?',
-    'This action irreversible.'
+    'This action irreversible.',
   )
 
   const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
@@ -55,8 +55,8 @@ export const PreferencesModal = () => {
         },
         onError() {
           toast.error('Failed to delete workspace!')
-        }
-      }
+        },
+      },
     )
   }
 
@@ -96,7 +96,7 @@ function EditWorkspaceForm() {
 
   const form = useForm<UpdateWorkspaceValues>({
     resolver: zodResolver(updateWorkspaceSchema),
-    defaultValues: { name: initialValue }
+    defaultValues: { name: initialValue },
   })
 
   function onSubmit({ name }: UpdateWorkspaceValues) {
@@ -110,8 +110,8 @@ function EditWorkspaceForm() {
         },
         onError() {
           toast.error('Failed to update workspace!')
-        }
-      }
+        },
+      },
     )
   }
 

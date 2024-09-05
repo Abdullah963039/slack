@@ -1,27 +1,27 @@
-import { ChevronDown, ListFilter, SquarePen } from "lucide-react";
+import { ChevronDown, ListFilter, SquarePen } from 'lucide-react'
 
-import { Doc } from "@root/convex/_generated/dataModel";
-import { Button } from "@/components/ui/button";
+import { Doc } from '@root/convex/_generated/dataModel'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Hint } from "@/components/hint";
-import { usePreferencesModal } from "@/features/workspaces/store/preferences-modal";
+} from '@/components/ui/dropdown-menu'
+import { Hint } from '@/components/hint'
+import { usePreferencesModal } from '@/features/workspaces/store/preferences-modal'
 
 interface WorkspaceHeaderProps {
-  workspace: Doc<"workspaces">;
-  isAdmin: boolean;
+  workspace: Doc<'workspaces'>
+  isAdmin: boolean
 }
 
 export const WorkspaceHeader = ({
   workspace,
   isAdmin,
 }: WorkspaceHeaderProps) => {
-  const { onOpen } = usePreferencesModal();
+  const { onOpen } = usePreferencesModal()
 
   return (
     <div className="flex h-[50px] items-center justify-between gap-0.5 px-4">
@@ -56,7 +56,7 @@ export const WorkspaceHeader = ({
                 onClick={() => {}}
               >
                 <p className="truncate">
-                  Invite people to{" "}
+                  Invite people to{' '}
                   <span className="inline font-medium">{workspace.name}</span>
                 </p>
               </DropdownMenuItem>
@@ -86,5 +86,5 @@ export const WorkspaceHeader = ({
         </Hint>
       </div>
     </div>
-  );
-};
+  )
+}

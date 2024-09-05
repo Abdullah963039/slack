@@ -22,7 +22,7 @@ export const CreateChannelForm = () => {
   const { isPending, mutate } = useCreateChannel()
 
   const form = useForm<CreateChannelValues>({
-    resolver: zodResolver(createChannelSchema)
+    resolver: zodResolver(createChannelSchema),
   })
 
   function onSubmit({ name }: CreateChannelValues) {
@@ -36,8 +36,8 @@ export const CreateChannelForm = () => {
         },
         onError() {
           toast.error('Something went wrong while create channel!')
-        }
-      }
+        },
+      },
     )
   }
 

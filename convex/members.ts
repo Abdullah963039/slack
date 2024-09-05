@@ -6,7 +6,7 @@ import { Doc, Id } from './_generated/dataModel'
 
 function populateUser(
   ctx: QueryCtx,
-  userId: Id<'users'>
+  userId: Id<'users'>,
 ): Promise<Doc<'users'> | null> {
   return ctx.db.get(userId)
 }
@@ -21,7 +21,7 @@ export const get = query({
     const member = await ctx.db
       .query('members')
       .withIndex('by_workspace_id_user_id', (q) =>
-        q.eq('workspaceId', args.workspaceId).eq('userId', userId)
+        q.eq('workspaceId', args.workspaceId).eq('userId', userId),
       )
       .unique()
 
@@ -30,7 +30,7 @@ export const get = query({
     const data = await ctx.db
       .query('members')
       .withIndex('by_workspace_id', (q) =>
-        q.eq('workspaceId', args.workspaceId)
+        q.eq('workspaceId', args.workspaceId),
       )
       .collect()
 
@@ -45,7 +45,7 @@ export const get = query({
     }
 
     return members
-  }
+  },
 })
 
 export const current = query({
@@ -58,10 +58,10 @@ export const current = query({
     const member = await ctx.db
       .query('members')
       .withIndex('by_workspace_id_user_id', (q) =>
-        q.eq('workspaceId', args.workspaceId).eq('userId', userId)
+        q.eq('workspaceId', args.workspaceId).eq('userId', userId),
       )
       .unique()
 
     return !!member ? member : null
-  }
+  },
 })

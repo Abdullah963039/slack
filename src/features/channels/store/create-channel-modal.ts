@@ -13,5 +13,5 @@ export const useCreateChannelModal = create<CreateChannelModalState>((set) => ({
   },
   onClose() {
     set({ isOpen: false })
-  }
+  },
 }))

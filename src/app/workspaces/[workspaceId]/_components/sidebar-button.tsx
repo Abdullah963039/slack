@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { LucideIcon } from "lucide-react";
-import { IconType } from "react-icons/lib";
+import { LucideIcon } from 'lucide-react'
+import { IconType } from 'react-icons/lib'
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface SidebarButtonProps {
-  icon: LucideIcon | IconType;
-  label: string;
-  active?: boolean;
+  icon: LucideIcon | IconType
+  label: string
+  active?: boolean
 }
 
 export const SidebarButton = ({
@@ -22,8 +22,8 @@ export const SidebarButton = ({
       <Button
         variant="transparent"
         className={cn(
-          "size-9 p-2 group-hover:bg-accent/20",
-          active && "bg-accent/20",
+          'size-9 p-2 group-hover:bg-accent/20',
+          active && 'bg-accent/20',
         )}
       >
         <Icon className="size-5 text-white transition-all group-hover:scale-110" />
@@ -32,5 +32,5 @@ export const SidebarButton = ({
         {label}
       </span>
     </div>
-  );
-};
+  )
+}

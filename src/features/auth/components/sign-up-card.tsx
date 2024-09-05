@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-import { useAuthActions } from "@convex-dev/auth/react";
-import { AlertTriangle } from "lucide-react";
-import { useState } from "react";
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
+import { useAuthActions } from '@convex-dev/auth/react'
+import { AlertTriangle } from 'lucide-react'
+import { useState } from 'react'
 
 import {
   Card,
@@ -12,42 +12,42 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 
-import { SignUpForm } from "./forms/sign-up-form";
-import { SignUpValues } from "./forms/validation";
-import { AuthFlow } from "../types";
+import { SignUpForm } from './forms/sign-up-form'
+import { SignUpValues } from './forms/validation'
+import { AuthFlow } from '../types'
 
 interface SignUpCardProps {
-  setState: (value: AuthFlow) => void;
+  setState: (value: AuthFlow) => void
 }
 
 export const SignUpCard = ({ setState }: SignUpCardProps) => {
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState('')
 
-  const { signIn } = useAuthActions();
+  const { signIn } = useAuthActions()
 
-  const onProvider = (provider: "github" | "google") => {
-    setPending(true);
+  const onProvider = (provider: 'github' | 'google') => {
+    setPending(true)
     signIn(provider).finally(() => {
-      setPending(false);
-    });
-  };
+      setPending(false)
+    })
+  }
 
   const onPasswordSignup = ({ email, password, name }: SignUpValues) => {
-    setPending(true);
+    setPending(true)
 
-    signIn("password", { email, password, name, flow: "signUp" })
+    signIn('password', { email, password, name, flow: 'signUp' })
       .catch(() => {
-        setError("Something went wrong.");
+        setError('Something went wrong.')
       })
       .finally(() => {
-        setPending(false);
-      });
-  };
+        setPending(false)
+      })
+  }
 
   return (
     <Card className="h-full w-full p-8">
@@ -71,7 +71,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
           <Button
             disabled={pending}
             variant="outline"
-            onClick={() => onProvider("google")}
+            onClick={() => onProvider('google')}
             size="lg"
             className="relative w-full"
           >
@@ -82,7 +82,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
           <Button
             disabled={pending}
             variant="outline"
-            onClick={() => onProvider("github")}
+            onClick={() => onProvider('github')}
             size="lg"
             className="relative w-full"
           >
@@ -91,16 +91,16 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
           </Button>
         </div>
         <div className="text-sm">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <span
             role="button"
             className="font-medium text-sky-700 transition hover:underline"
-            onClick={() => setState("signIn")}
+            onClick={() => setState('signIn')}
           >
             Sign in
           </span>
         </div>
       </CardContent>
     </Card>
-  );
-};
+  )
+}

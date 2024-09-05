@@ -5,7 +5,7 @@ import {
   HashIcon,
   Loader,
   MessageSquareText,
-  SendHorizonal
+  SendHorizonal,
 } from 'lucide-react'
 
 import { useCurrentMember } from '@/features/members/api/use-current-member'
@@ -23,7 +23,7 @@ import { useCreateChannelModal } from '@/features/channels/store/create-channel-
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId()
   const { data: member, isLoading: loadingMemeber } = useCurrentMember({
-    workspaceId
+    workspaceId,
   })
   const { data: workspace, isLoading: loadingWorkspace } =
     useGetWorkspaceById(workspaceId)

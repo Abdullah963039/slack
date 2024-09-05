@@ -1,36 +1,36 @@
-import { Metadata } from "next";
-import { fetchQuery } from "convex/nextjs";
-import { redirect, RedirectType } from "next/navigation";
+import { Metadata } from 'next'
+import { fetchQuery } from 'convex/nextjs'
+import { redirect, RedirectType } from 'next/navigation'
 
-import { api } from "@root/convex/_generated/api";
-import { Id } from "@root/convex/_generated/dataModel";
+import { api } from '@root/convex/_generated/api'
+import { Id } from '@root/convex/_generated/dataModel'
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable";
+} from '@/components/ui/resizable'
 
-import { Toolbar } from "./_components/toolbar";
-import { Sidebar } from "./_components/sidebar";
-import { WorkspaceSidebar } from "./_components/workspace-sidebar";
+import { Toolbar } from './_components/toolbar'
+import { Sidebar } from './_components/sidebar'
+import { WorkspaceSidebar } from './_components/workspace-sidebar'
 
 export async function generateMetadata({
   params,
-}: Pick<WorkspaceLayoutProps, "params">): Promise<Metadata> {
+}: Pick<WorkspaceLayoutProps, 'params'>): Promise<Metadata> {
   const workspace = await fetchQuery(api.workspaces.getByIdMetadata, {
-    id: params.workspaceId as Id<"workspaces">,
-  });
+    id: params.workspaceId as Id<'workspaces'>,
+  })
 
-  if (!workspace) redirect("/", RedirectType.replace);
+  if (!workspace) redirect('/', RedirectType.replace)
 
   return {
     title: `Workspace | ${workspace.name}`,
-  };
+  }
 }
 
 interface WorkspaceLayoutProps {
-  children: React.ReactNode;
-  params: { workspaceId: string };
+  children: React.ReactNode
+  params: { workspaceId: string }
 }
 
 export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
@@ -55,5 +55,5 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         </ResizablePanelGroup>
       </div>
     </div>
-  );
+  )
 }

@@ -55,7 +55,7 @@ export const useUpdateWorkspace = () => {
         options?.onSettled?.()
       }
     },
-    [mutation]
+    [mutation],
   )
 
   return { mutate, error, data, isPending, isSuccess, isSettled, isError }

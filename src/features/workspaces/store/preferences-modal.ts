@@ -19,5 +19,5 @@ export const usePreferencesModal = create<PreferencesModalState>((set) => ({
   },
   updateValue(value) {
     set({ initialValue: value })
-  }
+  },
 }))
