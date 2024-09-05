@@ -17,14 +17,18 @@ import { WorkspaceSidebar } from './_components/workspace-sidebar'
 export async function generateMetadata({
   params,
 }: Pick<WorkspaceLayoutProps, 'params'>): Promise<Metadata> {
-  const workspace = await fetchQuery(api.workspaces.getByIdMetadata, {
-    id: params.workspaceId as Id<'workspaces'>,
-  })
+  try {
+    const workspace = await fetchQuery(api.workspaces.getByIdMetadata, {
+      id: params.workspaceId as Id<'workspaces'>,
+    })
 
-  if (!workspace) redirect('/', RedirectType.replace)
+    if (!workspace) redirect('/', RedirectType.replace)
 
-  return {
-    title: `Workspace | ${workspace.name}`,
+    return {
+      title: `Workspace | ${workspace.name}`,
+    }
+  } catch (error) {
+    return { title: 'Something went wrong!' }
   }
 }
 

@@ -13,6 +13,7 @@ interface WorkspaceSectionProps {
   hint: string
   children: React.ReactNode
   onNew?: () => void
+  defaultOpen?: boolean
 }
 
 export const WorkspaceSection = ({
@@ -20,8 +21,9 @@ export const WorkspaceSection = ({
   hint,
   label,
   onNew,
+  defaultOpen = false,
 }: WorkspaceSectionProps) => {
-  const [on, toggle] = useToggle(true)
+  const [on, toggle] = useToggle(defaultOpen)
 
   return (
     <div className="mt-3 flex flex-col px-2">
@@ -32,7 +34,7 @@ export const WorkspaceSection = ({
           onClick={toggle}
         >
           <FaCaretDown
-            className={cn('size-4 transition-transform', on && '-rotate-90')}
+            className={cn('size-4 transition-transform', !on && '-rotate-90')}
           />
         </Button>
         <Button

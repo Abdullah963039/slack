@@ -61,3 +61,11 @@ export const create = mutation({
     return channelId
   },
 })
+
+// This query for meta
+export const getByIdMetadata = query({
+  args: { id: v.id('channels') },
+  async handler(ctx, args) {
+    return await ctx.db.get(args.id)
+  },
+})
