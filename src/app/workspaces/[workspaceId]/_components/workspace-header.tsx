@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Hint } from '@/components/hint'
 import { usePreferencesModal } from '@/features/workspaces/store/preferences-modal'
+import { useInviteModal } from '@/features/workspaces/store/invite-modal'
 
 interface WorkspaceHeaderProps {
   workspace: Doc<'workspaces'>
@@ -21,7 +22,8 @@ export const WorkspaceHeader = ({
   workspace,
   isAdmin,
 }: WorkspaceHeaderProps) => {
-  const { onOpen } = usePreferencesModal()
+  const onOpenPreferences = usePreferencesModal((state) => state.onOpen)
+  const onOpenInvite = useInviteModal((state) => state.onOpen)
 
   return (
     <div className="flex h-[50px] items-center justify-between gap-0.5 px-4">
@@ -53,7 +55,12 @@ export const WorkspaceHeader = ({
 
               <DropdownMenuItem
                 className="cursor-pointer py-2"
-                onClick={() => {}}
+                onClick={() =>
+                  onOpenInvite({
+                    joinCode: workspace.joinCode,
+                    name: workspace.name,
+                  })
+                }
               >
                 <p className="truncate">
                   Invite people to{' '}
@@ -65,7 +72,7 @@ export const WorkspaceHeader = ({
 
               <DropdownMenuItem
                 className="cursor-pointer py-2"
-                onClick={() => onOpen(workspace.name)}
+                onClick={() => onOpenPreferences(workspace.name)}
               >
                 Preferences
               </DropdownMenuItem>
