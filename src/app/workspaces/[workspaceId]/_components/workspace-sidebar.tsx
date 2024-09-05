@@ -18,6 +18,7 @@ import { WorkspaceHeader } from './workspace-header'
 import { SidebarItem } from './sidebar-item'
 import { WorkspaceSection } from './workspace-section'
 import { UserItem } from './user-item'
+import { useCreateChannelModal } from '@/features/channels/store/create-channel-modal'
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId()
@@ -26,12 +27,10 @@ export const WorkspaceSidebar = () => {
   })
   const { data: workspace, isLoading: loadingWorkspace } =
     useGetWorkspaceById(workspaceId)
-  const { data: channels, isLoading: loadingChannels } = useGetChannels({
-    workspaceId
-  })
-  const { data: members, isLoading: loadingMembers } = useGetMembers({
-    workspaceId
-  })
+  const { data: channels } = useGetChannels({ workspaceId })
+  const { data: members } = useGetMembers({ workspaceId })
+
+  const { onOpen: openCreateChannelModal } = useCreateChannelModal()
 
   if (loadingMemeber || loadingWorkspace)
     return (
@@ -59,7 +58,11 @@ export const WorkspaceSidebar = () => {
         <SidebarItem label="Draft & Sent" icon={SendHorizonal} id="drafts" />
       </div>
 
-      <WorkspaceSection label="Channels" hint="New channel" onNew={() => {}}>
+      <WorkspaceSection
+        label="Channels"
+        hint="New channel"
+        onNew={member.role === 'admin' ? openCreateChannelModal : undefined}
+      >
         {channels?.map((channelItem) => (
           <SidebarItem
             key={channelItem._id}

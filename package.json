@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "pnpx convex dev"
+    "server": "pnpx convex dev",
+    "format": "prettier \"{src,convex}/**/*.{ts,tsx,js,json}\" --ignore-path .prettierignore",
+    "format:check": "pnpm format --check",
+    "format:write": "pnpm format --write"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
