@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Slack',
   description: 'Welcome to slack tutorial',
+  icons: [{ url: '/logo.svg', origin: '/logo.svg' }],
 }
 
 interface RootLayoutProps {
