@@ -55,14 +55,14 @@ export default function WorkspaceIdPage() {
     onOpen,
   ])
 
-  if (loadingWorkspace || loadingChannels)
+  if (loadingWorkspace || loadingChannels || loadingMember)
     return (
       <div className="flex h-full flex-col items-center justify-center gap-2">
         <Loader className="size-6 animate-spin text-muted-foreground" />
       </div>
     )
 
-  if (!workspace)
+  if (!workspace || !member)
     return (
       <div className="flex h-full flex-col items-center justify-center gap-2">
         <TriangleAlert className="size-6 text-muted-foreground" />
@@ -72,10 +72,13 @@ export default function WorkspaceIdPage() {
       </div>
     )
 
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-2">
-      <TriangleAlert className="size-6 text-muted-foreground" />
-      <span className="text-sm text-muted-foreground">No channel found!</span>
-    </div>
-  )
+  if (channels?.length === 0)
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-2">
+        <TriangleAlert className="size-6 text-muted-foreground" />
+        <span className="text-sm text-muted-foreground">No channel found!</span>
+      </div>
+    )
+
+  return null
 }
