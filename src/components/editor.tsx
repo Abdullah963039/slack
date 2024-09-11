@@ -14,6 +14,7 @@ import { ImageIcon, Smile } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Hint } from '@/components/hint'
 import { cn } from '@/lib/utils'
+import { EmojiPopover } from '@/components/emoji-popover'
 
 import 'quill/dist/quill.snow.css'
 
@@ -57,7 +58,6 @@ export default function Editor({
   useLayoutEffect(() => {
     submitRef.current = onSubmit
     placeholderRef.current = placeholder
-    quillRef.current = null
     defaultValueRef.current = defaultValue
     disabledRef.current = disabled
   })
@@ -136,6 +136,13 @@ export default function Editor({
       toolbarElement?.classList.toggle('hidden')
     }
   }
+
+  function onEmojiSelect(emoji: any) {
+    const quill = quillRef.current
+
+    quill?.insertText(quill.getSelection()?.index || 0, emoji.native)
+  }
+
   const isEmpty = text.replace(/<(.|\n)*?>/g, '').trim().length == 0
 
   return (
@@ -156,16 +163,11 @@ export default function Editor({
             </Button>
           </Hint>
 
-          <Hint label="Emoji">
-            <Button
-              disabled={disabled}
-              size="icon-sm"
-              variant="ghost"
-              onClick={() => {}}
-            >
+          <EmojiPopover onEmojiSelect={onEmojiSelect}>
+            <Button disabled={disabled} size="icon-sm" variant="ghost">
               <Smile className="size-4" />
             </Button>
-          </Hint>
+          </EmojiPopover>
 
           {variant === 'update' && (
             <div className="ml-auto flex items-center gap-x-2">
@@ -218,11 +220,18 @@ export default function Editor({
           )}
         </div>
       </div>
-      <div className="flex justify-end p-2 text-[10px] text-muted-foreground">
-        <p>
-          <strong>Shift + Enter</strong> to add a new line.
-        </p>
-      </div>
+      {variant == 'create' && (
+        <div
+          className={cn(
+            'flex justify-end p-2 text-[10px] text-muted-foreground opacity-0 transition',
+            !isEmpty && 'opacity-100',
+          )}
+        >
+          <p>
+            <strong>Shift + Enter</strong> to add a new line.
+          </p>
+        </div>
+      )}
     </div>
   )
 }
