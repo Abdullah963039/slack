@@ -86,6 +86,21 @@ export default function Editor({
             enter: {
               key: 'Enter',
               handler: () => {
+                const text = quill.getText()
+                // Added image variable: to avoid using state & avoid rerender expensive component on each state change
+                const addedImage = imageElementRef.current?.files?.[0] || null
+
+                const isEmpty =
+                  !addedImage &&
+                  text.replace(/<(.|\n)*?>/g, '').trim().length == 0
+
+                if (isEmpty) return
+
+                const body = JSON.stringify(quill.getContents())
+
+                // Used ref: to avoid add 'onSubmit' function to useEffect dependency array
+                submitRef.current?.({ body, image: addedImage })
+
                 return
               },
             },
@@ -146,7 +161,7 @@ export default function Editor({
     quill?.insertText(quill.getSelection()?.index || 0, emoji.native)
   }
 
-  const isEmpty = text.replace(/<(.|\n)*?>/g, '').trim().length == 0
+  const isEmpty = !image && text.replace(/<(.|\n)*?>/g, '').trim().length == 0
 
   return (
     <div className="flex flex-col">
@@ -157,7 +172,12 @@ export default function Editor({
         onChange={(e) => setImage(e.target.files![0])}
         className="hidden"
       />
-      <div className="flex flex-col overflow-hidden rounded-md border border-slate-200 bg-white transition focus-within:border-slate-300 focus-within:shadow-sm">
+      <div
+        className={cn(
+          'flex flex-col overflow-hidden rounded-md border border-slate-200 bg-white transition focus-within:border-slate-300 focus-within:shadow-sm',
+          disabled && 'opacity-50',
+        )}
+      >
         <div ref={containerRef} className="ql-custom h-full" />
         {!!image && (
           <div className="p-2">
@@ -207,14 +227,19 @@ export default function Editor({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => {}}
+                onClick={onCancel}
                 disabled={disabled}
               >
                 Cancel
               </Button>
               <Button
                 size="sm"
-                onClick={() => {}}
+                onClick={() => {
+                  onSubmit({
+                    body: JSON.stringify(quillRef.current?.getContents()),
+                    image,
+                  })
+                }}
                 disabled={disabled || isEmpty}
                 className="bg-[#007a5a] text-white hover:bg-[#007a5a]/80"
               >
@@ -245,7 +270,12 @@ export default function Editor({
                   : 'bg-[#007a5a] text-white hover:bg-[#007a5a]/80',
               )}
               size="icon-sm"
-              onClick={() => {}}
+              onClick={() => {
+                onSubmit({
+                  body: JSON.stringify(quillRef.current?.getContents()),
+                  image,
+                })
+              }}
               disabled={disabled || isEmpty}
             >
               <MdSend className="size-4" />
