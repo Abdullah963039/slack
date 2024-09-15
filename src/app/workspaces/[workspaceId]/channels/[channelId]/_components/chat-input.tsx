@@ -3,9 +3,12 @@ import { toast } from 'sonner'
 import Quill from 'quill'
 import { useRef, useState } from 'react'
 
-import { useCreateMessage } from '@/features/messages/api/use-create-message'
+import { Id } from '@root/convex/_generated/dataModel'
+
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useChannelId } from '@/hooks/use-channel-id'
+import { useCreateMessage } from '@/features/messages/api/use-create-message'
+import { useGenerateUploadUrl } from '@/features/upload/api/use-generate-upload-url'
 
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
 
@@ -13,11 +16,21 @@ interface ChatInputProps {
   placeholder: string
 }
 
+type CreateMessageValues = {
+  workspaceId: Id<'workspaces'>
+  body: string
+  image?: Id<'_storage'>
+  channelId?: Id<'channels'>
+  parentMessageId?: Id<'messages'>
+}
+
 export const ChatInput = ({ placeholder }: ChatInputProps) => {
   const [editorKey, setEditorKey] = useState(0)
   const [isPending, setIsPending] = useState(false)
 
   const { mutate: sendMessage } = useCreateMessage()
+  const { mutate: generateUploadUrl } = useGenerateUploadUrl()
+
   const workspaceId = useWorkspaceId()
   const channelId = useChannelId()
   const editorRef = useRef<Quill | null>(null)
@@ -31,20 +44,49 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
   }) {
     try {
       setIsPending(true)
-      await sendMessage(
-        {
-          body,
-          workspaceId,
-          channelId,
-        },
-        { throwError: true },
-      )
+
+      editorRef.current?.enable(false)
+
+      const values: CreateMessageValues = {
+        channelId,
+        workspaceId,
+        body,
+        image: undefined,
+      }
+
+      if (image) {
+        const url = await generateUploadUrl({}, { throwError: true })
+
+        console.log({
+          method: 'POST',
+          headers: { 'Content-Type': image.type },
+          body: image,
+          url,
+        })
+
+        if (!url) throw new Error('Failed to upload image')
+
+        const result = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': image.type },
+          body: image,
+        })
+
+        if (!result.ok) throw new Error('Failed to upload')
+
+        const { storageId } = await result.json()
+
+        values.image = storageId
+      }
+
+      await sendMessage(values, { throwError: true })
 
       setEditorKey((prev) => prev + 1)
     } catch (error) {
       toast.error('Failed to send')
     } finally {
       setIsPending(false)
+      editorRef.current?.enable(true)
     }
   }
 
