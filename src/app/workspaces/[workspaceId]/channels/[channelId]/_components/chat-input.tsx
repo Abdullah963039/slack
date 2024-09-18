@@ -18,10 +18,9 @@ interface ChatInputProps {
 
 type CreateMessageValues = {
   workspaceId: Id<'workspaces'>
+  channelId: Id<'channels'>
   body: string
   image?: Id<'_storage'>
-  channelId?: Id<'channels'>
-  parentMessageId?: Id<'messages'>
 }
 
 export const ChatInput = ({ placeholder }: ChatInputProps) => {
