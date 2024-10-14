@@ -8,6 +8,8 @@ body,
   height: 100%;
 }
 
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -121,4 +123,9 @@ body,
 
 .ql-renderer {
   padding: 0 !important;
+}
+
+.messages-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #dcdcdc #f8f8f8;
 }
