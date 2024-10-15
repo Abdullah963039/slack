@@ -42,7 +42,12 @@ export const Toolbar = ({
 
         {!hideThreadButton && (
           <Hint label="Reply in thread">
-            <Button variant="ghost" size="icon-sm" disabled={isPending}>
+            <Button
+              onClick={handleThread}
+              variant="ghost"
+              size="icon-sm"
+              disabled={isPending}
+            >
               <MessageSquareTextIcon className="size-4" />
             </Button>
           </Hint>
@@ -50,7 +55,12 @@ export const Toolbar = ({
 
         {isAuhtor && (
           <Hint label="Edit message">
-            <Button variant="ghost" size="icon-sm" disabled={isPending}>
+            <Button
+              onClick={handleEdit}
+              variant="ghost"
+              size="icon-sm"
+              disabled={isPending}
+            >
               <PencilIcon className="size-4" />
             </Button>
           </Hint>
@@ -58,7 +68,12 @@ export const Toolbar = ({
 
         {isAuhtor && (
           <Hint label="Delete message">
-            <Button variant="ghost" size="icon-sm" disabled={isPending}>
+            <Button
+              onClick={handleDelete}
+              variant="ghost"
+              size="icon-sm"
+              disabled={isPending}
+            >
               <TrashIcon className="size-4" />
             </Button>
           </Hint>
