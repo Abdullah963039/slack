@@ -13,6 +13,7 @@ import {
 import { Toolbar } from './_components/toolbar'
 import { Sidebar } from './_components/sidebar'
 import { WorkspaceSidebar } from './_components/workspace-sidebar'
+import { ThreadPanel } from './_components/thread-panel'
 
 export async function generateMetadata({
   params,
@@ -58,6 +59,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
           <ResizablePanel defaultSize={80} minSize={20}>
             {children}
           </ResizablePanel>
+
+          <ThreadPanel />
         </ResizablePanelGroup>
       </div>
     </div>
