@@ -7,6 +7,7 @@ import {
   MessageSquareText,
   SendHorizonal,
 } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 import { useCurrentMember } from '@/features/members/api/use-current-member'
 import { useGetMembers } from '@/features/members/api/use-get-members'
@@ -15,6 +16,7 @@ import { useGetChannels } from '@/features/channels/api/use-get-channels'
 import { useCreateChannelModal } from '@/features/channels/store/create-channel-modal'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useChannelId } from '@/hooks/use-channel-id'
+import { useMemberId } from '@/hooks/use-member-id'
 
 import { WorkspaceHeader } from './workspace-header'
 import { WorkspaceSection } from './workspace-section'
@@ -24,6 +26,9 @@ import { UserItem } from './user-item'
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId()
   const channelId = useChannelId()
+  const memberId = useMemberId()
+
+  const pathname = usePathname()
 
   const { data: member, isLoading: loadingMemeber } = useCurrentMember({
     workspaceId,
@@ -65,7 +70,7 @@ export const WorkspaceSidebar = () => {
       <WorkspaceSection
         label="Channels"
         hint="New channel"
-        defaultOpen
+        defaultOpen={pathname.includes('channels')}
         onNew={member.role === 'admin' ? openCreateChannelModal : undefined}
       >
         {channels?.map((channelItem) => (
@@ -82,6 +87,7 @@ export const WorkspaceSidebar = () => {
       <WorkspaceSection
         label="Direct Messages"
         hint="New direct message"
+        defaultOpen={pathname.includes('members')}
         onNew={() => {}}
       >
         {members?.map((memberItem) => (
@@ -90,7 +96,7 @@ export const WorkspaceSidebar = () => {
             id={memberItem._id}
             label={memberItem.user.name}
             image={memberItem.user.image}
-            variant={memberItem._id === member._id ? 'active' : 'default'}
+            variant={memberItem._id === memberId ? 'active' : 'default'}
           />
         ))}
       </WorkspaceSection>
