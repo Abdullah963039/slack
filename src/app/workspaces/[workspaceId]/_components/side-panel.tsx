@@ -6,11 +6,12 @@ import { ResizableHandle, ResizablePanel } from '@/components/ui/resizable'
 import { usePanel } from '@/hooks/use-panel'
 import { Id } from '@root/convex/_generated/dataModel'
 import { Thread } from '@/features/messages/components/thread'
+import { Profile } from '@/features/members/components/profile'
 
-export const ThreadPanel = () => {
-  const { parentMessageId, onClose } = usePanel()
+export const SidePanel = () => {
+  const { parentMessageId, onClose, profileMemberId } = usePanel()
 
-  const showPannel = !!parentMessageId
+  const showPannel = !!parentMessageId || !!profileMemberId
 
   if (!showPannel) return null
 
@@ -21,6 +22,11 @@ export const ThreadPanel = () => {
         {parentMessageId !== null ? (
           <Thread
             messageId={parentMessageId as Id<'messages'>}
+            onClose={onClose}
+          />
+        ) : profileMemberId != null ? (
+          <Profile
+            memberId={profileMemberId as Id<'members'>}
             onClose={onClose}
           />
         ) : (
