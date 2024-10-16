@@ -14,6 +14,7 @@ import { useConfirm } from '@/hooks/use-confirm'
 import { useToggleReaction } from '@/features/reactions/api/use-toggle-reaction'
 import { Reactions } from '@/components/reactions'
 import { usePanel } from '@/hooks/use-panel'
+import { ThreadBar } from '@/components/thread-bar'
 const Renderer = dynamic(() => import('@/components/renderer'), { ssr: false })
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
 
@@ -38,6 +39,7 @@ interface MessageProps {
   threadCount?: number
   threadImage?: string
   threadTimestamp?: number
+  threadName?: string
 }
 
 export const Message = ({
@@ -46,6 +48,7 @@ export const Message = ({
   id,
   isAuhtor,
   isEditing,
+  threadName,
   memberId,
   reactions,
   setEditingId,
@@ -160,6 +163,13 @@ export const Message = ({
                   </span>
                 )}
                 <Reactions data={reactions} onChange={handleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  timestamp={threadTimestamp}
+                  name={threadName}
+                  onClick={() => onOpenMessage(id)}
+                />
               </div>
             )}
           </div>
@@ -231,6 +241,13 @@ export const Message = ({
                 <span className="text-xs text-muted-foreground">(edited)</span>
               )}
               <Reactions data={reactions} onChange={handleReaction} />
+              <ThreadBar
+                count={threadCount}
+                image={threadImage}
+                timestamp={threadTimestamp}
+                onClick={() => onOpenMessage(id)}
+                name={threadName}
+              />
             </div>
           )}
         </div>
