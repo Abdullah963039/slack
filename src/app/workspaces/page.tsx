@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useMemo } from 'react'
+import { Loader } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces'
 import { useCreateWorkspaceModal } from '@/features/workspaces/store/create-workspace-modal'
-import { Loader } from 'lucide-react'
 
 function WorkspacePage() {
   const router = useRouter()
