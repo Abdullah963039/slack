@@ -7,7 +7,7 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Hint } from '@/components/hint'
-import { EmojiPopover } from './emoji-popover'
+import { EmojiPopover } from '@/components/emoji-popover'
 
 interface ToolbarProps {
   isAuhtor: boolean
