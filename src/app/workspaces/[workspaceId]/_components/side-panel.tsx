@@ -1,12 +1,12 @@
 'use client'
 
-import { LoaderIcon } from 'lucide-react'
+import { Id } from '@root/convex/_generated/dataModel'
 
 import { ResizableHandle, ResizablePanel } from '@/components/ui/resizable'
 import { usePanel } from '@/hooks/use-panel'
-import { Id } from '@root/convex/_generated/dataModel'
 import { Thread } from '@/features/messages/components/thread'
 import { Profile } from '@/features/members/components/profile'
+import { Loader } from '@/components/loader'
 
 export const SidePanel = () => {
   const { parentMessageId, onClose, profileMemberId } = usePanel()
@@ -30,9 +30,7 @@ export const SidePanel = () => {
             onClose={onClose}
           />
         ) : (
-          <div className="flex h-full items-center justify-center">
-            <LoaderIcon className="size-5 animate-spin text-muted-foreground" />
-          </div>
+          <Loader />
         )}
       </ResizablePanel>
     </>

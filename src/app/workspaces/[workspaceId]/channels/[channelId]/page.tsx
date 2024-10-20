@@ -2,7 +2,7 @@
 
 import { AlertTriangle, Loader } from 'lucide-react'
 
-import { MessageList } from '@/components/message-list'
+import { MessageList } from '@/features/messages/components/message-list'
 import { useGetChannel } from '@/features/channels/api/use-get-channel'
 import { useGetMessages } from '@/features/messages/api/use-get-messages'
 import { useChannelId } from '@/hooks/use-channel-id'

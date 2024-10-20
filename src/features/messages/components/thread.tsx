@@ -1,23 +1,25 @@
 import Quill from 'quill'
-import { differenceInMinutes, format, isToday, isYesterday } from 'date-fns'
+import { differenceInMinutes, format } from 'date-fns'
 import dynamic from 'next/dynamic'
 import { useRef, useState } from 'react'
-import { AlertTriangle, LoaderIcon, XIcon } from 'lucide-react'
+import { AlertTriangle, XIcon } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Id } from '@root/convex/_generated/dataModel'
 
 import { Button } from '@/components/ui/button'
-import { Message } from '@/components/message'
-import { useGetMessage } from '@/features/messages/api/use-get-message'
 import { useCurrentMember } from '@/features/members/api/use-current-member'
-import { useCreateMessage } from '@/features/messages/api/use-create-message'
-import { useGetMessages } from '@/features/messages/api/use-get-messages'
 import { useGenerateUploadUrl } from '@/features/upload/api/use-generate-upload-url'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useChannelId } from '@/hooks/use-channel-id'
-
+import { Loader } from '@/components/loader'
+import { formatDateLabel } from '@/lib/utils'
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
+
+import { useGetMessage } from '../api/use-get-message'
+import { useCreateMessage } from '../api/use-create-message'
+import { useGetMessages } from '../api/use-get-messages'
+import { Message } from './message'
 
 const TIME_THRESHOLD = 5 as const
 interface ThreadProps {
@@ -84,9 +86,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
           </Button>
         </div>
 
-        <div className="flex h-full items-center justify-center">
-          <LoaderIcon className="size-5 animate-spin text-muted-foreground" />
-        </div>
+        <Loader />
       </div>
     )
   }
@@ -236,9 +236,10 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
         {isLoadingMore && (
           <div className="relative my-2 text-center">
             <hr className="absolute left-0 right-0 top-1/2 border-t border-gray-300" />
-            <span className="relative inline-block rounded-full border border-gray-300 bg-white px-4 py-1 text-xs shadow-sm">
-              <LoaderIcon className="size-4 animate-spin" />
-            </span>
+            <Loader
+              className="relative inline-block h-auto rounded-full border border-gray-300 bg-white px-4 py-1 text-xs shadow-sm"
+              iconCn="size-4 animate-spin"
+            />
           </div>
         )}
 
@@ -270,12 +271,4 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
       </div>
     </div>
   )
-}
-
-function formatDateLabel(dateStr: string) {
-  const date = new Date(dateStr)
-  if (isToday(date)) return 'Today'
-  if (isYesterday(date)) return 'Yesterday'
-
-  return format(date, 'EEEE, MMMM d')
 }

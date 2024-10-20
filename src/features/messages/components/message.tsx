@@ -3,20 +3,22 @@ import dynamic from 'next/dynamic'
 import { format, isToday, isYesterday } from 'date-fns'
 
 import { Doc, Id } from '@root/convex/_generated/dataModel'
+
 import { Hint } from '@/components/hint'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Thumbnail } from '@/components/thumbnail'
 import { Toolbar } from '@/components/toolbar'
-import { useUpdateMessage } from '@/features/messages/api/use-update-message'
 import { cn } from '@/lib/utils'
-import { useDeleteMessage } from '@/features/messages/api/use-delete-message'
 import { useConfirm } from '@/hooks/use-confirm'
 import { useToggleReaction } from '@/features/reactions/api/use-toggle-reaction'
-import { Reactions } from '@/components/reactions'
+import { Reactions } from '@/features/reactions/components/reactions'
 import { usePanel } from '@/hooks/use-panel'
-import { ThreadBar } from '@/components/thread-bar'
 const Renderer = dynamic(() => import('@/components/renderer'), { ssr: false })
 const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
+
+import { useUpdateMessage } from '../api/use-update-message'
+import { useDeleteMessage } from '../api/use-delete-message'
+import { Thumbnail } from './thumbnail'
+import { ThreadBar } from './thread-bar'
 
 interface MessageProps {
   id: Id<'messages'>

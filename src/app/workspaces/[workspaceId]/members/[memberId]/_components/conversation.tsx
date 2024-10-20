@@ -1,11 +1,10 @@
-import { Loader } from 'lucide-react'
-
 import { Id } from '@root/convex/_generated/dataModel'
 
-import { MessageList } from '@/components/message-list'
+import { MessageList } from '@/features/messages/components/message-list'
 import { useGetMember } from '@/features/members/api/use-get-member'
 import { useGetMessages } from '@/features/messages/api/use-get-messages'
 import { useMemberId } from '@/hooks/use-member-id'
+import { Loader } from '@/components/loader'
 import { usePanel } from '@/hooks/use-panel'
 
 import { Header } from './header'
@@ -24,12 +23,7 @@ export const Conversation = ({ id }: ConversationProps) => {
 
   const { results, status, loadMore } = useGetMessages({ conversationId: id })
 
-  if (loadingMember || status === 'LoadingFirstPage')
-    return (
-      <div className="flex h-full items-center justify-center">
-        <Loader className="size-6 animate-spin text-muted-foreground" />
-      </div>
-    )
+  if (loadingMember || status === 'LoadingFirstPage') return <Loader />
 
   return (
     <div className="flex h-full flex-col">

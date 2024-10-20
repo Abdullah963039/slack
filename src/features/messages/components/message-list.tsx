@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Loader } from 'lucide-react'
-import { differenceInMinutes, format, isToday, isYesterday } from 'date-fns'
+import { differenceInMinutes, format } from 'date-fns'
 
 import { Id } from '@root/convex/_generated/dataModel'
-import { GetMessagesReturnType } from '@/features/messages/api/use-get-messages'
-import { Message } from '@/components/message'
+import { Message } from '@/features/messages/components/message'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useCurrentMember } from '@/features/members/api/use-current-member'
-import { ConversationHero } from '@/components/conversation-hero'
-import { ChannelHero } from '@/components/channel-hero'
+import { formatDateLabel } from '@/lib/utils'
+
+import { GetMessagesReturnType } from '../api/use-get-messages'
+import { ConversationHero } from './conversation-hero'
+import { ChannelHero } from './channel-hero'
 
 const TIME_THRESHOLD = 5 as const
 
@@ -138,12 +140,4 @@ export const MessageList = ({
       )}
     </div>
   )
-}
-
-function formatDateLabel(dateStr: string) {
-  const date = new Date(dateStr)
-  if (isToday(date)) return 'Today'
-  if (isYesterday(date)) return 'Yesterday'
-
-  return format(date, 'EEEE, MMMM d')
 }

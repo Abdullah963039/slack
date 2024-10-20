@@ -1,13 +1,15 @@
 'use client'
 
-import { AlertTriangle, Loader } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { toast } from 'sonner'
 import { useEffect, useState } from 'react'
+
+import { Id } from '@root/convex/_generated/dataModel'
 
 import { useCreateOrGetConversation } from '@/features/conversations/api/use-create-or-get-conversation'
 import { useMemberId } from '@/hooks/use-member-id'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
-import { Id } from '@root/convex/_generated/dataModel'
+import { Loader } from '@/components/loader'
 
 import { Conversation } from './_components/conversation'
 
@@ -35,12 +37,7 @@ export default function MemberIdPage() {
     )
   }, [memberId, workspaceId, mutate])
 
-  if (isPending)
-    return (
-      <div className="flex h-full items-center justify-center">
-        <Loader className="size-6 animate-spin text-muted-foreground" />
-      </div>
-    )
+  if (isPending) return <Loader />
 
   if (conversationId == null)
     return (

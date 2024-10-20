@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp'
 import Image from 'next/image'
-import { Loader } from 'lucide-react'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
@@ -17,6 +16,7 @@ import { Button } from '@/components/ui/button'
 import { useWorkspaceId } from '@/hooks/use-workspace-id'
 import { useGetWorkspaceInfo } from '@/features/workspaces/api/use-get-workspace-info'
 import { useJoinWorkspace } from '@/features/workspaces/api/use-join-workspace'
+import { Loader } from '@/components/loader'
 
 interface JoinWorkspaceProps {
   params: { workspaceId: string }
@@ -40,12 +40,7 @@ export default function JoinWorkspace({ params }: JoinWorkspaceProps) {
 
   const [joinCode, setJoinCode] = useState<string>('')
 
-  if (isLoading)
-    return (
-      <div className="flex h-full items-center justify-center">
-        <Loader className="size-6 animate-spin text-muted-foreground" />
-      </div>
-    )
+  if (isLoading) return <Loader />
 
   function onComplete(code: string) {
     mutate(

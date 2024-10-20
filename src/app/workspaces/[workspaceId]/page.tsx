@@ -80,5 +80,9 @@ export default function WorkspaceIdPage() {
       </div>
     )
 
-  return null
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-2">
+      <Loader className="size-6 animate-spin text-muted-foreground" />
+    </div>
+  )
 }

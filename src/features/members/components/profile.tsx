@@ -1,10 +1,4 @@
-import {
-  AlertTriangle,
-  ChevronDownIcon,
-  LoaderIcon,
-  MailIcon,
-  XIcon,
-} from 'lucide-react'
+import { AlertTriangle, ChevronDownIcon, MailIcon, XIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -22,6 +16,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuRadioGroup,
 } from '@/components/ui/dropdown-menu'
+import { Loader } from '@/components/loader'
 
 import { useGetMember } from '../api/use-get-member'
 import { useUpdateMember } from '../api/use-update-member'
@@ -130,9 +125,7 @@ export const Profile = ({ memberId, onClose }: ProfileProps) => {
           </Button>
         </div>
 
-        <div className="flex h-full items-center justify-center">
-          <LoaderIcon className="size-5 animate-spin text-muted-foreground" />
-        </div>
+        <Loader />
       </div>
     )
   }
